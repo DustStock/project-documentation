@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://dagk53s44d8jb"]
+
+[ext_resource type="Script" path="res://addons/project_documentation/documentation_generator_dialog.gd" id="1_mum6i"]
+
+[node name="DocumentationGeneratorDialog" type="Window"]
+position = Vector2i(0, 36)
+size = Vector2i(250, 400)
+script = ExtResource("1_mum6i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 1000)
+offset_right = 236.0
+offset_bottom = 288.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ExportSceneTree" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Scene Tree
+"
+
+[node name="ExportSignalConnections" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Signal Connections"
+
+[node name="ExportChangedProperties" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Changed Properties"
+
+[node name="ExportNodeGroups" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Node Groups"
+
+[node name="ExportScripts" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Scripts"
+
+[node name="ExportResources" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Resources"
+
+[node name="ExportShaders" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Export Shaders"
+
+[node name="GenerateButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Generate"
+
+[node name="CancelButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="VBoxContainer/GenerateButton" to="." method="_on_generate_pressed"]
+[connection signal="pressed" from="VBoxContainer/CancelButton" to="." method="_on_cancel_pressed"]
