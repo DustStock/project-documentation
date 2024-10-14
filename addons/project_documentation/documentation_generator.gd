@@ -8,6 +8,7 @@ var scripts_info := {}
 var resources_info := {}
 var shaders_info := {}
 var autoload_scripts := {}
+var excluded_directories := []
 
 # Configuration options
 var export_scene_tree := true
@@ -31,6 +32,8 @@ func set_options(new_options):
 	export_scripts = options.get("export_scripts", true)
 	export_resources = options.get("export_resources", true)
 	export_shaders = options.get("export_shaders", true)
+	excluded_directories = options.get("excluded_directories")
+
 
 func generate():
 	# Phase 1: Data Collection
@@ -332,18 +335,24 @@ func get_all_resource_paths(directory_path: String, include_subdirectories: bool
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 	while file_name != "":
+		var full_path = directory_path.path_join(file_name)
 		if dir.current_is_dir():
-			if include_subdirectories:
-				var sub_dir = directory_path.path_join(file_name)
-				file_paths.append_array(get_all_resource_paths(sub_dir, true, extensions_filter))
+			if include_subdirectories and not is_excluded_directory(full_path):
+				file_paths.append_array(get_all_resource_paths(full_path, true, extensions_filter))
 		else:
 			var extension = file_name.get_extension().to_lower()
 			if extensions_filter.is_empty() or extension in extensions_filter:
-				file_paths.append(directory_path.path_join(file_name))
+				file_paths.append(full_path)
 		file_name = dir.get_next()
 	
 	dir.list_dir_end()
 	return file_paths
+
+func is_excluded_directory(path: String) -> bool:
+	for excluded_dir in excluded_directories:
+		if path.begins_with(excluded_dir):
+			return true
+	return false
 
 func get_node_script(state: SceneState, node_idx: int) -> Script:
 	var property_count = state.get_node_property_count(node_idx)

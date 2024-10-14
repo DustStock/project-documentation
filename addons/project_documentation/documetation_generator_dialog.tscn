@@ -50,12 +50,35 @@ layout_mode = 2
 button_pressed = true
 text = "Export Shaders"
 
+[node name="ExcludedDirectoriesContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ExcludedDirectoriesContainer"]
+layout_mode = 2
+text = "Excluded Directories:"
+
+[node name="ExcludedDirectoriesList" type="VBoxContainer" parent="VBoxContainer/ExcludedDirectoriesContainer"]
+layout_mode = 2
+
+[node name="AddDirectoryContainer" type="HBoxContainer" parent="VBoxContainer/ExcludedDirectoriesContainer"]
+layout_mode = 2
+
+[node name="AddDirectoryButton" type="Button" parent="VBoxContainer/ExcludedDirectoriesContainer/AddDirectoryContainer"]
+layout_mode = 2
+text = "Add Directory"
+
 [node name="GenerateButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Generate"
 
 [node name="CancelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Cancel"
+
+[node name="DirectoryDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
 
 [connection signal="close_requested" from="." to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="VBoxContainer/GenerateButton" to="." method="_on_generate_pressed"]
