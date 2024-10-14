@@ -3,6 +3,7 @@ extends Window
 
 var excluded_directories = ["res://addons/"]
 
+@onready var vbox_container = $VBoxContainer
 @onready var excluded_directories_list = $VBoxContainer/ExcludedDirectoriesContainer/ExcludedDirectoriesList
 @onready var add_directory_button = $VBoxContainer/ExcludedDirectoriesContainer/AddDirectoryContainer/AddDirectoryButton
 @onready var directory_dialog = $DirectoryDialog
@@ -12,6 +13,7 @@ func _ready():
 	add_directory_button.connect("pressed", _on_add_directory_button_pressed)
 	directory_dialog.connect("dir_selected", _on_directory_selected)
 	update_excluded_directories_list()
+	call_deferred("adjust_window_size")
 
 func _on_generate_pressed():
 	print("generate pressed")
@@ -41,6 +43,7 @@ func _on_directory_selected(dir):
 	if dir not in excluded_directories:
 		excluded_directories.append(dir)
 		update_excluded_directories_list()
+		adjust_window_size()
 
 func update_excluded_directories_list():
 	for child in excluded_directories_list.get_children():
@@ -61,3 +64,17 @@ func update_excluded_directories_list():
 func _on_delete_directory(dir):
 	excluded_directories.erase(dir)
 	update_excluded_directories_list()
+	adjust_window_size()
+
+func adjust_window_size():
+	# Wait for one frame to ensure all UI elements are updated
+	await get_tree().process_frame
+	
+	# Calculate the required height
+	var required_height = vbox_container.get_minimum_size().y + 20  # Add some padding
+	
+	# Get the current window size
+	var current_size = size
+	
+	# Set the new window size
+	size = Vector2(current_size.x, required_height)

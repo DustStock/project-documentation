@@ -13,7 +13,6 @@ config_version=5
 config/name="Project Documentation"
 run/main_scene="res://addons/project_documentation/documetation_generator_dialog.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://icon.svg"
 
 [editor_plugins]
 

@@ -5,6 +5,7 @@
 [node name="DocumentationGeneratorDialog" type="Window"]
 position = Vector2i(0, 36)
 size = Vector2i(250, 400)
+exclusive = true
 script = ExtResource("1_mum6i")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -12,7 +13,7 @@ custom_minimum_size = Vector2(0, 1000)
 offset_right = 236.0
 offset_bottom = 288.0
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 7
 
 [node name="ExportSceneTree" type="CheckBox" parent="VBoxContainer"]
 layout_mode = 2
@@ -52,16 +53,17 @@ text = "Export Shaders"
 
 [node name="ExcludedDirectoriesContainer" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/ExcludedDirectoriesContainer"]
-layout_mode = 2
-text = "Excluded Directories:"
+size_flags_vertical = 5
 
 [node name="ExcludedDirectoriesList" type="VBoxContainer" parent="VBoxContainer/ExcludedDirectoriesContainer"]
 layout_mode = 2
 
 [node name="AddDirectoryContainer" type="HBoxContainer" parent="VBoxContainer/ExcludedDirectoriesContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ExcludedDirectoriesContainer/AddDirectoryContainer"]
+layout_mode = 2
+text = "Exclude:"
 
 [node name="AddDirectoryButton" type="Button" parent="VBoxContainer/ExcludedDirectoriesContainer/AddDirectoryContainer"]
 layout_mode = 2
